@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-// const bagRoutes = "./bag";
-console.log("gg")
-router.use((a,b, next) => {
-    console.log("gg")
+router.get("/", (req, res, next) => {
+  console.log("api");
 });
 
 module.exports = router;
