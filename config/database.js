@@ -1,7 +1,8 @@
 const { MongoClient } = require("mongodb");
 
 async function dbCall(service, ...rest) {
-  const uri = "mongodb+srv://Pierre:Peyo5202@cluster0.ieszb.mongodb.net/test";
+
+  const uri = process.env.DB_CONFIG;
   const client = new MongoClient(uri, { useUnifiedTopology: true });
 
   try {
@@ -9,7 +10,10 @@ async function dbCall(service, ...rest) {
     await client.connect();
 
     // Make the appropriate DB calls
-    await service(client, ...rest);
+    const data = await service(client, ...rest);
+
+    return data;
+
   } catch (e) {
     console.error(e);
   } finally {
