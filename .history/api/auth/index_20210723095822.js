@@ -3,9 +3,8 @@ const router = express.Router();
 const passport = require("passport");
 
 router.post("/register_login", (req, res, next) => {
-    console.log("passed in /register_login")
+   
     passport.authenticate("local", function(err, user, info) {
-        console.log("user is:", user)
         if (err) {
             return res.status(400).json({ errors: err });
         }
