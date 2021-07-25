@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const { nanoid } = require("nanoid");
 const token = nanoid(48);
 const cors = require("cors");
+const maxAge = 1000 * 60 * 60 * 24;
 
 const passport = require("./passport/setup");
 
@@ -29,17 +30,24 @@ app.use(cors())
 
 app.use(
     session({
+        name: "funhistoryToken",
         secret: token,
         resave: false,
         saveUninitialized: true,
         store: MongoStore.create({ mongoUrl: process.env.DB_CONFIG }),
         secure: false,
-        cookie: { secure: false }
+        cookie: { secure: false, maxAge: maxAge },
     })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use("/", (req, res, next) => {
+    console.log(req.session)
+    console.log(req.isAuthenticated())
+    next();
+})
 
 app.use("/api", apiRoutes);
 
