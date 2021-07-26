@@ -2,10 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 
-router.post("/isAuthenticated", (req, res, next) => {
-    // console.log(req.isAuthenticated())
-    // console.log('passed in isAuthRoute')
-})
+router.post("/isAuthenticated", (req, res))
 
 router.post("/register_login", (req, res, next) => {
     console.log(req?.body);

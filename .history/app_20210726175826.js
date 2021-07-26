@@ -43,10 +43,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", (req, res, next) => {
-    console.log("headers:", req.headers.cookie)
-    console.log("cookies :", req.cookies)
-    console.log('Signed Cookies: ', req.signedCookies)
+app.use("/", req.isAuthenticated, (req, res, next) => {
+    console.log(req)
     console.log("isAuth:",req.isAuthenticated())
     next();
 })

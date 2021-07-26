@@ -23,10 +23,10 @@ mongoose
     })
     .catch((err) => console.log(err));
 
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors())
+// app.use(cors())
 
 app.use(
     session({
@@ -44,9 +44,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", (req, res, next) => {
-    console.log("headers:", req.headers.cookie)
-    console.log("cookies :", req.cookies)
-    console.log('Signed Cookies: ', req.signedCookies)
+    console.log(req.token)
     console.log("isAuth:",req.isAuthenticated())
     next();
 })

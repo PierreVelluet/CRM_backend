@@ -30,7 +30,7 @@ app.use(cors())
 
 app.use(
     session({
-        // name: "funhistoryToken",
+        name: "funhistoryToken",
         secret: token,
         resave: false,
         saveUninitialized: true,
@@ -42,14 +42,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use("/", (req, res, next) => {
-    console.log("headers:", req.headers.cookie)
-    console.log("cookies :", req.cookies)
-    console.log('Signed Cookies: ', req.signedCookies)
-    console.log("isAuth:",req.isAuthenticated())
-    next();
-})
 
 app.use("/api", apiRoutes);
 
