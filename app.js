@@ -23,7 +23,7 @@ mongoose
     })
     .catch((err) => console.log(err));
 
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors())
@@ -43,13 +43,15 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", (req, res, next) => {
-    console.log("headers:", req.headers.cookie)
-    console.log("cookies :", req.cookies)
-    console.log('Signed Cookies: ', req.signedCookies)
-    console.log("isAuth:",req.isAuthenticated())
-    next();
-})
+
+// app.use("/", (req, res, next) => {
+//     console.log("headers:", req.headers)
+//     console.log("cookies :", req.cookies)
+//     console.log('Signed Cookies: ', req.signedCookies)
+//     console.log("req.sessions is: ", req.session)
+//     console.log("isAuth:",req.isAuthenticated())
+//     next();
+// })
 
 app.use("/api", apiRoutes);
 
