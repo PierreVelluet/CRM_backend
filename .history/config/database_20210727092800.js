@@ -1,6 +1,8 @@
 const { MongoClient } = require("mongodb");
 
-async function dbCall(service, ...rest) {
+const Country = require("../models/Countries")
+
+async function dbCall(service) {
 
   const uri = process.env.DB_CONFIG;
   const client = new MongoClient(uri, { useUnifiedTopology: true });
@@ -10,9 +12,15 @@ async function dbCall(service, ...rest) {
     await client.connect();
 
     // Make the appropriate DB calls
-    const data = await service(...rest);
+    // const data = await service(client, ...rest);
+    console.log(client)
+    Country.find({"name": "Japan"}, function (err, country) {
+      if (err) return handleError(err);
+      console.log('toto')
+      console.log(country)
+    })
 
-    return data;
+    // return data;
 
   } catch (e) {
     console.error(e);

@@ -6,6 +6,7 @@ const { getCountry } = require("../../services/countries");
 
 //Read user
 router.get("/:name", async (req, res, next) => {
+    console.log('passed')
     const { name } = req?.params;
   
     const result = await dbCall(getCountry, name).catch(console.error);

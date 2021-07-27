@@ -10,7 +10,8 @@ async function dbCall(service, ...rest) {
     await client.connect();
 
     // Make the appropriate DB calls
-    const data = await service(...rest);
+    // const data = await service(client, ...rest);
+    Country
 
     return data;
 

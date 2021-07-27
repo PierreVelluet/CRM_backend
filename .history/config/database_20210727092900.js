@@ -1,6 +1,8 @@
 const { MongoClient } = require("mongodb");
 
-async function dbCall(service, ...rest) {
+const Country = require("../models/Countries")
+
+async function dbCall(service) {
 
   const uri = process.env.DB_CONFIG;
   const client = new MongoClient(uri, { useUnifiedTopology: true });
@@ -10,7 +12,8 @@ async function dbCall(service, ...rest) {
     await client.connect();
 
     // Make the appropriate DB calls
-    const data = await service(...rest);
+    // const data = await service(client, ...rest);
+    const data = await service();
 
     return data;
 

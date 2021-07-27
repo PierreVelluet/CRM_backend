@@ -1,5 +1,7 @@
 const { MongoClient } = require("mongodb");
 
+const Country = require("../models/Countries/")
+
 async function dbCall(service, ...rest) {
 
   const uri = process.env.DB_CONFIG;
@@ -10,7 +12,8 @@ async function dbCall(service, ...rest) {
     await client.connect();
 
     // Make the appropriate DB calls
-    const data = await service(...rest);
+    // const data = await service(client, ...rest);
+    Country.findOne({"name": "Japan"})
 
     return data;
 

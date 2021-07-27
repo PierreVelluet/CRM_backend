@@ -12,7 +12,7 @@ async function getCountry(name) {
 
 async function createCountry(name) {
 
-    Country.create()
+    Country.create
 
     const result = await Country.findOne({ name: name });
     if (result) {

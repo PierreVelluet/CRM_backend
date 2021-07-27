@@ -10,10 +10,7 @@ async function getCountry(name) {
     }
 }
 
-async function createCountry(name) {
-
-    Country.create()
-
+async function getCountry(name) {
     const result = await Country.findOne({ name: name });
     if (result) {
         return result;
