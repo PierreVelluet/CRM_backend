@@ -13,9 +13,10 @@ router.get("/:name", async (req, res, next) => {
     res.status(200).json(result);
 });
 
-router.post("/create", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   console.log('/api/createCountry')
   const { name } = req?.body;
+  console.log('passed /create')
 
   const result = await dbCall(createCountry, name).catch(console.error);
   res.status(200).json(result);

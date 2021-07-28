@@ -13,7 +13,7 @@ router.get("/:name", async (req, res, next) => {
     res.status(200).json(result);
 });
 
-router.post("/create", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   console.log('/api/createCountry')
   const { name } = req?.body;
 

@@ -43,8 +43,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-console.log('app.js')
-
 // app.use("/", (req, res, next) => {
 //     console.log("headers:", req.headers)
 //     console.log("cookies :", req.cookies)

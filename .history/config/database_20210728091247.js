@@ -8,7 +8,7 @@ async function dbCall(service, ...rest) {
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-    console.log('database.js')
+    console.log('pass in database.js')
     // Make the appropriate DB calls
     const data = await service(...rest);
 

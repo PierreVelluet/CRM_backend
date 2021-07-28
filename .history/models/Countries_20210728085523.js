@@ -2,7 +2,7 @@ const mongoose = require("mongoose"),
     Schema = mongoose.Schema;
 
 const countrySchema = Schema({
-    // _id: Schema.Types.ObjectId,
+    _id: Schema.Types.ObjectId,
     name: String,
     // image: String,
     // quizzes: [{ type: Schema.Types.ObjectId, ref: "Quizz" }]

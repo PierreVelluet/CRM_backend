@@ -13,8 +13,7 @@ async function getCountry(name) {
 async function createCountry(name) {
 
     Country.create({ name: name }, function (err, country) {
-        console.log("ok")
-        if (err) console.log(err);
+        if (err) return handleError(err);
         // saved!
         console.log(country)
       });
