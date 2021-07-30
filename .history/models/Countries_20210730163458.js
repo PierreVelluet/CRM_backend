@@ -4,10 +4,10 @@ const mongoose = require("mongoose"),
 const countrySchema = Schema({
     // Light description
     name: String,
-    capital: String,
+    capital: {type: String, default: ""},
     language: String,
     government: String,
-    leader: {type: String, default: "Manu"},
+    leader: String,
     area: Number,
     population: Number,
     timeZone: String,

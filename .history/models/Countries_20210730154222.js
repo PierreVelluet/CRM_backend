@@ -7,14 +7,18 @@ const countrySchema = Schema({
     capital: String,
     language: String,
     government: String,
-    leader: {type: String, default: "Manu"},
+    leader: String,
     area: Number,
     population: Number,
     timeZone: String,
     // other data
-    quiz: [{ type: Schema.Types.ObjectId, ref: "Quizz" }],
+    quizzes: [{ type: Schema.Types.ObjectId, ref: "Quizz" }],
     bgImage: String
 
+
+
+    // image: String,
+    // quizzes: [{ type: Schema.Types.ObjectId, ref: "Quizz" }]
 }, {collection: "countries"});
 
 const quizzSchema = Schema({

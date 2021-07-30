@@ -5,28 +5,30 @@ exports.create = (req, res) => {
         res.status(404).send({ message: "Content can not be empty!" });
         return;
     }
-    
-    Country.findOne({ name: req.body.name }).then((data) => {
-        if (data) {
-            res.status(200).send({
-                message: `Country '${req?.body?.name}' already exists!`
-            });
-            return;
-        }
-    });
+    let exists = false;
+    Country.findOne({ name: req.body.name })
+    .then((data) => {
+        console.log(data)
+    })
+    // if () {
+    //     res.status(200).send({
+    //         message: `Country '${req?.body?.name}' already exists!`
+    //     });
+    //     return;
+    // }
 
     // Create a Country
     const country = new Country({
-        name: req.body.name,
+        name: req.body.name ?? "",
         capital: req.body.capital,
-        language: req.body.language,
-        government: req.body.government,
-        leader: req.body.leader,
-        area: req.body.area,
-        population: req.body.population,
-        timeZone: req.body.timeZone,
-        quiz: req.body.quiz,
-        bgImage: req.body.bgImage
+        language: req.body.language ?? "",
+        government: req.body.government ?? "",
+        leader: req.body.leader ?? "",
+        area: req.body.area ?? 0,
+        population: req.body.population ?? 0,
+        timeZone: req.body.timeZone ?? "",
+        quiz: req.body.quiz ?? [],
+        bgImage: req.body.bgImage ?? ""
     });
 
     // Save Country in the database

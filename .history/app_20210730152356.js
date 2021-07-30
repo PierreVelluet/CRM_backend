@@ -9,7 +9,7 @@ const token = nanoid(48);
 const cors = require("cors");
 const maxAge = 1000 * 60 * 60 * 24;
 const dbUri = process.env.DB_CONFIG;
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 // const {database} = require("./config/database");
 //
 // const { MongoClient } = require("mongodb");
@@ -66,6 +66,7 @@ app.use("/api", apiRoutes);
 connect();
 
 function listen() {
+    if (app.get("env") === "test") return;
     app.listen(port);
     console.log("Express app started on port " + port);
 }

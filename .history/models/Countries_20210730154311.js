@@ -7,7 +7,7 @@ const countrySchema = Schema({
     capital: String,
     language: String,
     government: String,
-    leader: {type: String, default: "Manu"},
+    leader: String,
     area: Number,
     population: Number,
     timeZone: String,

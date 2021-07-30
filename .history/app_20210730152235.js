@@ -9,7 +9,6 @@ const token = nanoid(48);
 const cors = require("cors");
 const maxAge = 1000 * 60 * 60 * 24;
 const dbUri = process.env.DB_CONFIG;
-const port = process.env.PORT || 5000;
 // const {database} = require("./config/database");
 //
 // const { MongoClient } = require("mongodb");
@@ -52,6 +51,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+console.log("app.js");
+
 // app.use("/", (req, res, next) => {
 //     console.log("headers:", req.headers)
 //     console.log("cookies :", req.cookies)
@@ -66,6 +67,7 @@ app.use("/api", apiRoutes);
 connect();
 
 function listen() {
+    if (app.get("env") === "test") return;
     app.listen(port);
     console.log("Express app started on port " + port);
 }
@@ -75,7 +77,7 @@ function connect() {
         .on("error", console.log)
         .on("disconnected", connect)
         .once("open", listen);
-    return mongoose.connect(dbUri, {
+    return mongoose.connect(config.db, {
         keepAlive: 1,
         useNewUrlParser: true,
         useUnifiedTopology: true

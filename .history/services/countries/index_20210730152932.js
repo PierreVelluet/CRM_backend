@@ -1,32 +1,17 @@
+//Read
 const { Country } = require("../../models/Countries");
+const { database } = require("../../config/database");
 
 exports.create = (req, res) => {
+    // Validate request
     if (!req.body.name) {
-        res.status(404).send({ message: "Content can not be empty!" });
+        res.status(400).send({ message: "Content can not be empty!" });
         return;
     }
-    
-    Country.findOne({ name: req.body.name }).then((data) => {
-        if (data) {
-            res.status(200).send({
-                message: `Country '${req?.body?.name}' already exists!`
-            });
-            return;
-        }
-    });
 
     // Create a Country
     const country = new Country({
-        name: req.body.name,
-        capital: req.body.capital,
-        language: req.body.language,
-        government: req.body.government,
-        leader: req.body.leader,
-        area: req.body.area,
-        population: req.body.population,
-        timeZone: req.body.timeZone,
-        quiz: req.body.quiz,
-        bgImage: req.body.bgImage
+        name: req.body.name
     });
 
     // Save Country in the database
@@ -36,7 +21,6 @@ exports.create = (req, res) => {
             res.send(data);
         })
         .catch((err) => {
-            console.log(err);
             res.status(500).send({
                 message:
                     err.message ||
@@ -45,7 +29,7 @@ exports.create = (req, res) => {
         });
 };
 
-exports.findByName = (req, res) => {
+exports.findOne = (req, res) => {
     const name = req.params.name;
 
     Country.findOne({ name })
