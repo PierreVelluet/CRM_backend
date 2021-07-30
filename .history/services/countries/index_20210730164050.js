@@ -1,26 +1,20 @@
 const { Country } = require("../../models/Countries");
 
-exports.create = async (req, res) => {
+exports.create = (req, res) => {
     if (!req.body.name) {
         res.status(404).send({ message: "Content can not be empty!" });
         return;
     }
-
-    let isUnique = true;
-    await Country.findOne({ name: req.body.name }).then((data) => {
+    let isUnique = false;
+    Country.findOne({ name: req.body.name }).then((data) => {
         if (data) {
-            console.log(data)
-            isUnique = false;
+            isUnique = true;
+            res.status(200).send({
+                message: `Country '${req?.body?.name}' already exists!`
+            });
+            return;
         }
     });
-
-    if (!isUnique) {
-        res.status(404).send({
-            message: `Country '${req?.body?.name}' already exists!`
-        });
-        console.log("euuuuh")
-        return;
-    }
 
     // Create a Country
     const country = new Country({

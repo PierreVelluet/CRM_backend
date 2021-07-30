@@ -9,19 +9,22 @@ exports.create = async (req, res) => {
     let isUnique = true;
     await Country.findOne({ name: req.body.name }).then((data) => {
         if (data) {
-            console.log(data)
-            isUnique = false;
+            res.status(404).send({
+                message: `Country '${req?.body?.name}' already exists!`
+            });
+            console.log("euuuuh")
+            return;
         }
     });
 
-    if (!isUnique) {
-        res.status(404).send({
-            message: `Country '${req?.body?.name}' already exists!`
-        });
-        console.log("euuuuh")
-        return;
-    }
-
+    // if (!isUnique) {
+    //     res.status(404).send({
+    //         message: `Country '${req?.body?.name}' already exists!`
+    //     });
+    //     console.log("euuuuh")
+    //     return;
+    // }
+    return
     // Create a Country
     const country = new Country({
         name: req.body.name,

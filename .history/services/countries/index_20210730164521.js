@@ -7,7 +7,7 @@ exports.create = async (req, res) => {
     }
 
     let isUnique = true;
-    await Country.findOne({ name: req.body.name }).then((data) => {
+    Country.findOne({ name: req.body.name }).then((data) => {
         if (data) {
             console.log(data)
             isUnique = false;

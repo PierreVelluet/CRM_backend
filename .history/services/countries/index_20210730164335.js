@@ -1,15 +1,15 @@
 const { Country } = require("../../models/Countries");
 
-exports.create = async (req, res) => {
+exports.create = (req, res) => {
     if (!req.body.name) {
         res.status(404).send({ message: "Content can not be empty!" });
         return;
     }
 
     let isUnique = true;
-    await Country.findOne({ name: req.body.name }).then((data) => {
+    Country.findOne({ name: req.body.name }).then((data) => {
         if (data) {
-            console.log(data)
+            c
             isUnique = false;
         }
     });
@@ -18,7 +18,6 @@ exports.create = async (req, res) => {
         res.status(404).send({
             message: `Country '${req?.body?.name}' already exists!`
         });
-        console.log("euuuuh")
         return;
     }
 
