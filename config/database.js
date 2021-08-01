@@ -1,22 +1,27 @@
-const { MongoClient } = require("mongodb");
 const uri = process.env.DB_CONFIG;
+const port = process.env.PORT || 5000;
+const mongoose = require("mongoose");
 
-const database = async (service) => {
-    const client = new MongoClient(uri, { useUnifiedTopology: true });
+function listen(app) {
+    app.listen(port);
+    console.log("FunHistory's backend started on port " + port);
+}
 
-    try {
-        await client.connect();
-        console.log("connected");
-
-        await service();
-    } catch (err) {
-        console.log(err);
-    } finally {
-        await client.close();
-        console.log("closed");
-    }
-};
+function connect(app) {
+    mongoose.connection
+        .on("error", console.log)
+        .on("disconnected", connect)
+        .once("open", () => listen(app));
+    return mongoose.connect(uri, {
+        keepAlive: 1,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+    });
+}
 
 module.exports = {
-    database
+    connect,
+    listen
 };
