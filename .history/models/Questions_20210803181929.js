@@ -4,7 +4,7 @@ const mongoose = require("mongoose"),
 const questionSchema = Schema(
     {
         // Light description
-        country: {type: String, required: true},
+        country: {String},
         questions: Array,
         rightAnswer: Number,
         conceptImage: String,

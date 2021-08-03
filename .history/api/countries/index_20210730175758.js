@@ -1,0 +1,12 @@
+const express = require("express");
+const router = express.Router();
+
+const countries = require("../../services/countries");
+
+//Create country
+router.post("/", countries.create);
+
+// Retrieve a single country with name
+router.get("/:name", countries.findByName);
+
+module.exports = router;

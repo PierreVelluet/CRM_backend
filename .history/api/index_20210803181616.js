@@ -4,11 +4,11 @@ const router = express.Router();
 const usersRoute = require("./user");
 const authRoute = require("./auth")
 const countriesRoute = require("./countries")
-const questionsRoute = require("./questions")
+const ques = require("./countries")
 
 router.use('/user', usersRoute)
 router.use('/auth', authRoute)
 router.use('/countries', countriesRoute)
-router.use('/questions', questionsRoute)
+router.use('/questions', countriesRoute)
 
 module.exports = router;

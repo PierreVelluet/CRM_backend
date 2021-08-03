@@ -9,6 +9,6 @@ const questionsRoute = require("./questions")
 router.use('/user', usersRoute)
 router.use('/auth', authRoute)
 router.use('/countries', countriesRoute)
-router.use('/questions', questionsRoute)
+router.use('/questions', countriesRoute)
 
 module.exports = router;
