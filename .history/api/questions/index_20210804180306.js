@@ -16,6 +16,6 @@ router.get("/", questions.findAll);
 router.post("/update/:id", questions.update);
 
 // // Delete a question by name
-// router.get("/delete/:name", questions.delete);
+// router.get("/delete/:name", countries.delete);
 
 module.exports = router;

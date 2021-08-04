@@ -74,13 +74,13 @@ exports.update = (req, res) => {
     }
 
     const filter = { _id: req?.params?.id };
-    const id = filter?._id;
+    const id = filter?.id;
     const update = {}
 
     // map existing fields to update the question
     Object.entries(req?.body)?.map(el => update[el[0]] = el[1]);
 
-    Country.findByIdAndUpdate(id, update, {
+    Country.findOneAndUpdate(filter, update, {
         returnOriginal: false
     })
         .then((data) => {

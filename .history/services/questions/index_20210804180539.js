@@ -73,21 +73,21 @@ exports.update = (req, res) => {
         });
     }
 
-    const filter = { _id: req?.params?.id };
-    const id = filter?._id;
+    const filter = { name: req?.params?.id };
+    const name = filter?.name;
     const update = {}
 
     // map existing fields to update the question
     Object.entries(req?.body)?.map(el => update[el[0]] = el[1]);
 
-    Country.findByIdAndUpdate(id, update, {
+    Country.findOneAndUpdate(filter, update, {
         returnOriginal: false
     })
         .then((data) => {
             if (!data) {
                 res.status(404).send({
                     success: false,
-                    message: `Cannot update Country with id '${id}'.`
+                    message: `Cannot update Country with name '${name}'.`
                 });
             } else
                 res.send({
@@ -98,7 +98,7 @@ exports.update = (req, res) => {
         .catch((err) => {
             res.status(500).send({
                 success: false,
-                message: `Error updating Country with id ${id}.`
+                message: `Error updating Country with name ${name}.`
             });
         });
 };

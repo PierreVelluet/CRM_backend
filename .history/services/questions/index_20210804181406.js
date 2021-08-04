@@ -80,7 +80,7 @@ exports.update = (req, res) => {
     // map existing fields to update the question
     Object.entries(req?.body)?.map(el => update[el[0]] = el[1]);
 
-    Country.findByIdAndUpdate(id, update, {
+    Country.findByIdAndUpdate({``}, update, {
         returnOriginal: false
     })
         .then((data) => {
