@@ -2,7 +2,7 @@ const mongoose = require("mongoose"),
     Schema = mongoose.Schema;
 
 const validator = (questions) => {
-    return questions.length == 3;
+    return questions.length < 1;
 };
 
 const QuestionItemSchema = Schema({

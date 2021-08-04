@@ -35,22 +35,7 @@ exports.create = async (req, res) => {
         });
 };
 
-exports.findAllByCountryName = (req, res) => {
-    const {country} = req?.params;
-    Question.find({country})
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message:
-                    err.message ||
-                    "Some error occurred while retrieving Questions."
-            });
-        });
-};
-
-exports.findAll = (req, res) => {
+exports.findAllByCountry = (req, res) => {
     Question.find()
         .then((data) => {
             res.send(data);
@@ -59,7 +44,7 @@ exports.findAll = (req, res) => {
             res.status(500).send({
                 message:
                     err.message ||
-                    "Some error occurred while retrieving Countrys."
+                    "Some error occurred while retrieving Questions."
             });
         });
 };

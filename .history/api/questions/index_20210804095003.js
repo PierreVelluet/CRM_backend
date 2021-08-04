@@ -6,14 +6,14 @@ const questions = require("../../services/questions");
 //Create question
 router.post("/", questions.create);
 
-//Read all questions by country name
-router.get("/:country", questions.findAllByCountryName);
+//Read all questions
+router.get("/", countries.findAll);
 
 // // Read all question
-router.get("/", questions.findAll);
+// router.get("/", countries.findAll);
 
-// Update a question by name
-// router.post("/update/:name", questions.update);
+// // Update a question by name
+// router.post("/update/:name", countries.update);
 
 // // Delete a question by name
 // router.get("/delete/:name", countries.delete);

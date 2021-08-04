@@ -13,7 +13,7 @@ router.get("/:country", questions.findAllByCountryName);
 router.get("/", questions.findAll);
 
 // Update a question by name
-// router.post("/update/:name", questions.update);
+router.post("/update/:name", questions.update);
 
 // // Delete a question by name
 // router.get("/delete/:name", countries.delete);

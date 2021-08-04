@@ -10,10 +10,10 @@ router.post("/", questions.create);
 router.get("/:country", questions.findAllByCountryName);
 
 // // Read all question
-router.get("/", questions.findAll);
+// router.get("/", countries.findAll);
 
 // Update a question by name
-// router.post("/update/:name", questions.update);
+router.post("/update/:name", countries.update);
 
 // // Delete a question by name
 // router.get("/delete/:name", countries.delete);

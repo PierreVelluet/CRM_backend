@@ -51,7 +51,7 @@ exports.findAllByCountryName = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Question.find()
+    Country.find()
         .then((data) => {
             res.send(data);
         })

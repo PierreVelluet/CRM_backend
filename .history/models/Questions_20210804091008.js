@@ -1,32 +1,22 @@
 const mongoose = require("mongoose"),
     Schema = mongoose.Schema;
 
-const validator = (questions) => {
-    return questions.length == 3;
-};
+    const QuestionItemSchema = Schema(
+        {
+            question: { type: String, required: true },
+            
 
-const QuestionItemSchema = Schema({
-    question: { type: String, required: true },
-    questionNumber: { type: Number, required: true }
-});
+        }
+    )
 
 const questionSchema = Schema(
     {
         country: { type: String, required: true },
         questions: {
-            type: [
-                {
-                    type: QuestionItemSchema,
-                    required: true
-
-                }
-            ],
-            validate: [
-                validator,
-                "You must have exactly 3 questions in your quizz"
-            ]
+            type: Array,
+            required: true,
+            default: [{ questionNumber: Number, question: String }]
         },
-
         rightAnswer: { type: Number, required: true },
         conceptImage: { type: String, required: true },
         explanation: { type: String, required: true },

@@ -35,9 +35,9 @@ exports.create = async (req, res) => {
         });
 };
 
-exports.findAllByCountryName = (req, res) => {
+exports.findAllByCountry = (req, res) => {
     const {country} = req?.params;
-    Question.find({country})
+    Question.find({country: country})
         .then((data) => {
             res.send(data);
         })
@@ -51,7 +51,7 @@ exports.findAllByCountryName = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Question.find()
+    Country.find()
         .then((data) => {
             res.send(data);
         })
