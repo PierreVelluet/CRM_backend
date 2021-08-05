@@ -36,7 +36,6 @@ exports.create = async (req, res) => {
 };
 
 exports.findAllByCountryName = (req, res) => {
-    console.log('nop')
     const {country} = req?.params;
     Question.find({country})
         .then((data) => {
@@ -53,46 +52,6 @@ exports.findAllByCountryName = (req, res) => {
 
 exports.findAll = (req, res) => {
     Question.find()
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                success: false,
-                message:
-                    err.message ||
-                    "Some error occurred while retrieving Countries."
-            });
-        });
-};
-
-exports.findRandomQuestions = (req, res) => {
-    console.log('findRandomQuestions ')
-
-    const { country, num } = req?.params;
-
-    Question.countDocuments({country}, (err, count) => {
-
-        const skipRecords = getRandomArbitrary(1, count-num);
-        console.log(count)
-        
-        Question.find({country}).skip(skipRecords)
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                success: false,
-                message:
-                    err.message ||
-                    "Some error occurred while retrieving random Countries."
-            });
-        });
-    })
-    {
-
-    }
-    Question.aggregate([ { $sample: { size: 3 } } ])
         .then((data) => {
             res.send(data);
         })
@@ -150,7 +109,7 @@ exports.delete = (req, res) => {
             if (!data) {
                 res.status(404).send({
                     success: false,
-                    message: `Cannot delete Question with id: ${id}. Maybe Question was not found!`
+                    message: `Cannot delete Question with id${id}. Maybe Question was not found!`
                 });
             } else {
                 res.send({
@@ -166,33 +125,3 @@ exports.delete = (req, res) => {
             });
         });
 };
-
-exports.deleteAllByCountry = (req, res) => {
-
-    const country = req.params.country;
-
-    Question.deleteMany({ country })
-        .then((data) => {
-            if (!data) {
-                res.status(404).send({
-                    success: false,
-                    message: `Cannot delete Questions with country: ${country}. Maybe Questions were not found!`
-                });
-            } else {
-                res.send({
-                    success: true,
-                    message: `Questions with country: ${country} were deleted successfully!`
-                });
-            }
-        })
-        .catch((err) => {
-            res.status(500).send({
-                success: false,
-                message: `Could not delete Questions with country: '${country}'`
-            });
-        });
-};
-
-function getRandomArbitrary(min, max) {
-    return Math.ceil(Math.random() * (max - min) + min);
-  }

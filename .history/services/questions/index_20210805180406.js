@@ -36,7 +36,6 @@ exports.create = async (req, res) => {
 };
 
 exports.findAllByCountryName = (req, res) => {
-    console.log('nop')
     const {country} = req?.params;
     Question.find({country})
         .then((data) => {
@@ -61,37 +60,14 @@ exports.findAll = (req, res) => {
                 success: false,
                 message:
                     err.message ||
-                    "Some error occurred while retrieving Countries."
+                    "Some error occurred while retrieving Countrys."
             });
         });
 };
 
 exports.findRandomQuestions = (req, res) => {
-    console.log('findRandomQuestions ')
 
-    const { country, num } = req?.params;
-
-    Question.countDocuments({country}, (err, count) => {
-
-        const skipRecords = getRandomArbitrary(1, count-num);
-        console.log(count)
-        
-        Question.find({country}).skip(skipRecords)
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                success: false,
-                message:
-                    err.message ||
-                    "Some error occurred while retrieving random Countries."
-            });
-        });
-    })
-    {
-
-    }
+    Question.countD
     Question.aggregate([ { $sample: { size: 3 } } ])
         .then((data) => {
             res.send(data);

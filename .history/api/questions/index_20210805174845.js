@@ -12,16 +12,13 @@ router.get("/:country", questions.findAllByCountryName);
 // // Read all question
 router.get("/", questions.findAll);
 
-// // Read X random questions
-router.get("/:country/:10", questions.findRandomQuestions);
-
 // Update a question by id
 router.post("/update/:id", questions.update);
 
 // // Delete a question by id
 router.get("/delete/:id", questions.delete);
 
-// // Delete all question by country name
-router.get("/deleteAll/:country", questions.deleteAllByCountry);
+// // Delete all question by id
+router.get("/delete/:id", questions.delete);
 
 module.exports = router;

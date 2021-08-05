@@ -36,7 +36,6 @@ exports.create = async (req, res) => {
 };
 
 exports.findAllByCountryName = (req, res) => {
-    console.log('nop')
     const {country} = req?.params;
     Question.find({country})
         .then((data) => {

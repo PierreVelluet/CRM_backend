@@ -13,7 +13,7 @@ router.get("/:country", questions.findAllByCountryName);
 router.get("/", questions.findAll);
 
 // // Read X random questions
-router.get("/:country/:10", questions.findRandomQuestions);
+router.get("/random/:10", questions.findRandomQuestions);
 
 // Update a question by id
 router.post("/update/:id", questions.update);

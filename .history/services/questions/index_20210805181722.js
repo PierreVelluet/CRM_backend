@@ -36,7 +36,6 @@ exports.create = async (req, res) => {
 };
 
 exports.findAllByCountryName = (req, res) => {
-    console.log('nop')
     const {country} = req?.params;
     Question.find({country})
         .then((data) => {
@@ -73,7 +72,7 @@ exports.findRandomQuestions = (req, res) => {
 
     Question.countDocuments({country}, (err, count) => {
 
-        const skipRecords = getRandomArbitrary(1, count-num);
+        const skipRecords = getRandomArbitrary(1, count-limitrecords);
         console.log(count)
         
         Question.find({country}).skip(skipRecords)
