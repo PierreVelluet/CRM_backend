@@ -71,11 +71,11 @@ exports.findRandomQuestions = (req, res) => {
     const { country, num } = req?.body;
 
     Question.countDocuments({ country }, (err, count) => {
-        const skipRecords = getRandomArbitrary(1, count-num);
-        console.log(count, num, country, skipRecords);
+        const skipRecords = getRandomArbitrary(1, 1);
+        console.log(count, num, country);
 
         Question.find({ country: country })
-            .skip(skipRecords)
+            // .skip(num)
             .then((data) => {
                 console.log("passed")
                 res.send({
@@ -92,6 +92,20 @@ exports.findRandomQuestions = (req, res) => {
                 });
             });
     });
+    {
+    }
+    Question.aggregate([{ $sample: { size: 3 } }])
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                success: false,
+                message:
+                    err.message ||
+                    "Some error occurred while retrieving Countrys."
+            });
+        });
 };
 
 exports.update = (req, res) => {

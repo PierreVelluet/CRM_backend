@@ -15,7 +15,7 @@ exports.create = async (req, res) => {
         rightAnswer: req.body.rightAnswer,
         conceptImage: req.body.conceptImage,
         explanation: req.body.explanation,
-        ressourceLink: req.body.ressourceLink
+        ressourceLink: req.body.ressourceLink,
     });
 
     // Save Question in the database
@@ -36,11 +36,11 @@ exports.create = async (req, res) => {
 };
 
 exports.findAllByCountryName = (req, res) => {
-    console.log("nop");
-    const { country } = req?.params;
-    Question.find({ country })
+    console.log('nop')
+    const {country} = req?.params;
+    Question.find({country})
         .then((data) => {
-            res.send({ success: true, data });
+            res.send(data);
         })
         .catch((err) => {
             res.status(500).send({
@@ -67,31 +67,44 @@ exports.findAll = (req, res) => {
 };
 
 exports.findRandomQuestions = (req, res) => {
-    console.log("yup")
-    const { country, num } = req?.body;
 
-    Question.countDocuments({ country }, (err, count) => {
-        const skipRecords = getRandomArbitrary(1, count-num);
-        console.log(count, num, country, skipRecords);
+    const { country, num } = req?.params;
 
-        Question.find({ country: country })
-            .skip(skipRecords)
-            .then((data) => {
-                console.log("passed")
-                res.send({
-                    success: true,
-                    data
-                });
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    success: false,
-                    message:
-                        err.message ||
-                        "Some error occurred while retrieving random Countries."
-                });
+    Question.countDocuments({country}, (err, count) => {
+
+        const skipRecords = getRandomArbitrary(1, 2);
+        console.log(count, num, country)
+        
+        Question.find({country}).skip(skipRecords)
+        .then((data) => {
+            res.send({
+                
             });
-    });
+        })
+        .catch((err) => {
+            res.status(500).send({
+                success: false,
+                message:
+                    err.message ||
+                    "Some error occurred while retrieving random Countries."
+            });
+        });
+    })
+    {
+
+    }
+    Question.aggregate([ { $sample: { size: 3 } } ])
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                success: false,
+                message:
+                    err.message ||
+                    "Some error occurred while retrieving Countrys."
+            });
+        });
 };
 
 exports.update = (req, res) => {
@@ -102,9 +115,9 @@ exports.update = (req, res) => {
         });
     }
 
-    const update = {};
+    const update = {}
     // map existing fields to update the question
-    Object.entries(req?.body)?.map((el) => (update[el[0]] = el[1]));
+    Object.entries(req?.body)?.map(el => update[el[0]] = el[1]);
 
     Question.findByIdAndUpdate(req?.params?.id, update, {
         returnOriginal: false
@@ -130,6 +143,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+
     const id = req.params.id;
 
     Question.findOneAndDelete(id)
@@ -155,6 +169,7 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAllByCountry = (req, res) => {
+
     const country = req.params.country;
 
     Question.deleteMany({ country })
@@ -181,4 +196,4 @@ exports.deleteAllByCountry = (req, res) => {
 
 function getRandomArbitrary(min, max) {
     return Math.ceil(Math.random() * (max - min) + min);
-}
+  }

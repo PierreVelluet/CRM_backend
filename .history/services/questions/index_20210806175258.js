@@ -72,7 +72,7 @@ exports.findRandomQuestions = (req, res) => {
 
     Question.countDocuments({ country }, (err, count) => {
         const skipRecords = getRandomArbitrary(1, count-num);
-        console.log(count, num, country, skipRecords);
+        console.log(count, num, country);
 
         Question.find({ country: country })
             .skip(skipRecords)
