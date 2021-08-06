@@ -36,7 +36,6 @@ exports.create = async (req, res) => {
 };
 
 exports.findAllByCountryName = (req, res) => {
-    console.log("nop");
     const { country } = req?.params;
     Question.find({ country })
         .then((data) => {
@@ -44,6 +43,7 @@ exports.findAllByCountryName = (req, res) => {
         })
         .catch((err) => {
             res.status(500).send({
+                success: false,
                 message:
                     err.message ||
                     "Some error occurred while retrieving Questions."
@@ -54,44 +54,38 @@ exports.findAllByCountryName = (req, res) => {
 exports.findAll = (req, res) => {
     Question.find()
         .then((data) => {
-            res.send(data);
+            res.send({ success: true, data });
         })
         .catch((err) => {
             res.status(500).send({
                 success: false,
                 message:
                     err.message ||
-                    "Some error occurred while retrieving Countries."
+                    "Some error occurred while retrieving questions."
             });
         });
 };
 
 exports.findRandomQuestions = (req, res) => {
-    console.log("yup")
     const { country, num } = req?.body;
 
-    Question.countDocuments({ country }, (err, count) => {
-        const skipRecords = getRandomArbitrary(1, count-num);
-        console.log(count, num, country, skipRecords);
-
-        Question.find({ country: country })
-            .skip(skipRecords)
-            .then((data) => {
-                console.log("passed")
-                res.send({
-                    success: true,
-                    data
-                });
-            })
-            .catch((err) => {
+    Question.findRandom(
+        country ? { country } : {},
+        {},
+        { limit: num },
+        function (err, results) {
+            if (err) {
                 res.status(500).send({
                     success: false,
                     message:
                         err.message ||
-                        "Some error occurred while retrieving random Countries."
+                        "Some error occurred while retrieving questions."
                 });
-            });
-    });
+            } else {
+                res.send({ success: true, results });
+            }
+        }
+    );
 };
 
 exports.update = (req, res) => {
@@ -178,7 +172,3 @@ exports.deleteAllByCountry = (req, res) => {
             });
         });
 };
-
-function getRandomArbitrary(min, max) {
-    return Math.ceil(Math.random() * (max - min) + min);
-}

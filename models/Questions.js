@@ -1,5 +1,6 @@
 const mongoose = require("mongoose"),
     Schema = mongoose.Schema;
+const random = require('mongoose-simple-random');
 
 const validator = (questions) => {
     return questions.length == 3;
@@ -34,6 +35,8 @@ const questionSchema = Schema(
     },
     { collection: "questions" }
 );
+
+questionSchema.plugin(random);
 
 Question = mongoose.model("Question", questionSchema);
 
