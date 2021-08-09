@@ -77,7 +77,7 @@ exports.findByName = (req, res) => {
 exports.findAll = (req, res) => {
     Country.find()
         .then((data) => {
-            res.send(data);
+            res.send({success: true, data});
         })
         .catch((err) => {
             res.status(500).send({
