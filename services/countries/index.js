@@ -33,7 +33,11 @@ exports.create = async (req, res) => {
         area: req.body.area,
         population: req.body.population,
         timeZone: req.body.timeZone,
-        flagImage: req.body.flagImage
+        flagImage: req.body.flagImage,
+        establishment: req.body.establishment,
+        density: req.body.density,
+        nativeCountryName: req.body.nativeCountryName,
+        greeting: req.body.greeting
     });
 
     // Save Country in the database
