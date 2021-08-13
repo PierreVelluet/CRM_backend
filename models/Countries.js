@@ -2,9 +2,9 @@ const mongoose = require("mongoose"),
     Schema = mongoose.Schema;
 
 const countrySchema = Schema({
-    // Light description
+    
     name: String,
-    nativeCountryName: String,
+    "native country name": String,
     greeting: String,
     capital: String,
     language: String,
@@ -15,6 +15,7 @@ const countrySchema = Schema({
     density: Number,
     timeZone: String,
     establishment: String,
+    "gross domestic product per capita": Number,
     flagImage: String
 
 }, {collection: "countries"});
