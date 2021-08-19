@@ -2,36 +2,52 @@ const mongoose = require("mongoose"),
     Schema = mongoose.Schema;
 const random = require('mongoose-simple-random');
 
-const validator = (questions) => {
-    return questions.length == 3;
+const answersValidation = (answers) => {
+    return answers.length == 3;
 };
 
-const QuestionItemSchema = Schema({
-    question: { type: String, required: true },
-    questionNumber: { type: Number, required: true }
+const categoriesValidation = (categories) => {
+    return categories.length > 0;
+};
+
+const answerItemSchema = Schema({
+    answer: { type: String, required: true },
+    questionNumber: { type: Number, required: true },
+    correct: { type: Boolean, required: true }
 });
 
 const questionSchema = Schema(
     {
-        country: { type: String, required: true },
-        questions: {
+        country: { type: String, required: [true, "You must have a country associated to your question"] },
+        question: { type: String, required: [true, "You must write a question"] },
+        answers: {
             type: [
                 {
-                    type: QuestionItemSchema,
+                    type: answerItemSchema,
                     required: true
-
+                },
+            ],
+            validate: [
+                answersValidation,
+                "You must have exactly 3 answers in your quizz"
+            ]
+        },
+        type:  { type: String, required: [true, "You must have a type associated to your question"] },
+        correctAnswerImage: { type: String, required: [true, "You must have an image associated to the correct answer"] },
+        explanation: { type: String, required: [true, "You must have an explanation associated to the correct answer"] },
+        ressourceLink: { type: String, required: [true, "You must have a ressource link associated to the correct answer (simple wikipedia link prefered)"] },
+        category: {
+            type: [
+                {
+                    type: String,
+                    required: true
                 }
             ],
             validate: [
-                validator,
-                "You must have exactly 3 questions in your quizz"
+                categoriesValidation,
+                "You must have at least one category associated to your question"
             ]
-        },
-
-        rightAnswer: { type: Number, required: true },
-        conceptImage: { type: String, required: true },
-        explanation: { type: String, required: true },
-        ressourceLink: { type: String, required: true }
+        }
     },
     { collection: "questions" }
 );
