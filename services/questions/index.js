@@ -11,11 +11,13 @@ exports.create = async (req, res) => {
     // Create a Question
     const question = new Question({
         country: req.body.country,
-        questions: req.body.questions,
-        rightAnswer: req.body.rightAnswer,
-        conceptImage: req.body.conceptImage,
+        question: req.body.question,
+        answers: req.body.answers,
+        type: req.body.type,
+        correctAnswerImage: req.body.correctAnswerImage,
         explanation: req.body.explanation,
-        ressourceLink: req.body.ressourceLink
+        ressourceLink: req.body.ressourceLink,
+        category: req.body.category
     });
 
     // Save Question in the database
@@ -67,10 +69,10 @@ exports.findAll = (req, res) => {
 };
 
 exports.findRandomQuestions = (req, res) => {
-    const { country, num } = req?.body;
+    const { country, category, num } = req?.body;
 
     Question.findRandom(
-        country ? { country } : {},
+        (country && category) ? { country, category } : {},
         {},
         { limit: num },
         function (err, results) {
