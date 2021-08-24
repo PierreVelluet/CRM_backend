@@ -62,11 +62,11 @@ const questionSchema = Schema(
                 "You must have a ressource link associated to the correct answer (simple wikipedia link prefered)"
             ]
         },
-        category: {
+        theme: {
             type: String,
             required: [
                 true,
-                "You must have a category associated to your question"
+                "You must have a theme associated to your question"
             ]
         }
     },

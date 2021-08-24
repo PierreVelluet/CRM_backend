@@ -17,7 +17,7 @@ exports.create = async (req, res) => {
         correctAnswerImage: req.body.correctAnswerImage,
         explanation: req.body.explanation,
         ressourceLink: req.body.ressourceLink,
-        category: req.body.category
+        theme: req.body.theme
     });
 
     // Save Question in the database
@@ -69,10 +69,10 @@ exports.findAll = (req, res) => {
 };
 
 exports.findRandomQuestions = (req, res) => {
-    const { country, category, num } = req?.body;
+    const { country, theme, num } = req?.body;
 
     Question.findRandom(
-        (country && category) ? { country, category } : {},
+        (country && theme) ? { country, theme } : {},
         {},
         { limit: num },
         function (err, results) {
