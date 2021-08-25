@@ -33,11 +33,12 @@ exports.create = async (req, res) => {
         area: req.body.area,
         population: req.body.population,
         timeZone: req.body.timeZone,
-        flagImage: req.body.flagImage,
+        bgImage: req.body.bgImage,
         establishment: req.body.establishment,
         density: req.body.density,
         nativeCountryName: req.body.nativeCountryName,
-        greeting: req.body.greeting
+        greeting: req.body.greeting,
+        continent: req.body.continent
     });
 
     // Save Country in the database
@@ -67,7 +68,7 @@ exports.findByName = (req, res) => {
                     success: false,
                     message: "Not found Country with name " + name
                 });
-            else res.send({success: true, data});
+            else res.send({ success: true, data });
         })
         .catch((err) => {
             console.log(err);
@@ -81,7 +82,7 @@ exports.findByName = (req, res) => {
 exports.findAll = (req, res) => {
     Country.find()
         .then((data) => {
-            res.send({success: true, data});
+            res.send({ success: true, data });
         })
         .catch((err) => {
             res.status(500).send({
@@ -89,6 +90,22 @@ exports.findAll = (req, res) => {
                 message:
                     err.message ||
                     "Some error occurred while retrieving Countrys."
+            });
+        });
+};
+
+exports.findAllByContinent = (req, res) => {
+    const { continent } = req?.params;
+    Country.find({ continent })
+        .then((data) => {
+            res.send({ success: true, data });
+        })
+        .catch((err) => {
+            res.status(500).send({
+                success: false,
+                message:
+                    err.message ||
+                    "Some error occurred while retrieving Countrys by continent."
             });
         });
 };
@@ -103,10 +120,10 @@ exports.update = (req, res) => {
 
     const filter = { name: req?.params?.name };
     const name = filter?.name;
-    const update = {}
+    const update = {};
 
     // map existing fields to update the country
-    Object.entries(req?.body)?.map(el => update[el[0]] = el[1]);
+    Object.entries(req?.body)?.map((el) => (update[el[0]] = el[1]));
 
     Country.findOneAndUpdate(filter, update, {
         returnOriginal: false

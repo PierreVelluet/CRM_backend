@@ -12,6 +12,9 @@ router.get("/:name", countries.findByName);
 // Read all country
 router.get("/", countries.findAll);
 
+// Read countrys by continents
+router.get("/continent/:continent", countries.findAllByContinent);
+
 // Update a country by name
 router.post("/update/:name", countries.update);
 

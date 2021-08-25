@@ -16,7 +16,8 @@ const countrySchema = Schema({
     timeZone: String,
     establishment: String,
     "gross domestic product per capita": Number,
-    flagImage: String
+    bgImage: String,
+    continent: String
 
 }, {collection: "countries"});
 
